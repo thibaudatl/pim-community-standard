@@ -1,0 +1,15 @@
+parameters:
+    pim_catalog.query.elasticsearch.filter.label_or_identifier.class: Veganz\Bundle\SearchBoxBundle\Filter\SearchBoxFilter
+    additional_product_search_filter: ['GTIN', 'Internal_article_number']
+
+services:
+    pim_catalog.query.elasticsearch.filter.label_or_identifier:
+        class: '%pim_catalog.query.elasticsearch.filter.label_or_identifier.class%'
+        arguments:
+            - ['label_or_identifier']
+            - ['CONTAINS']
+            - '%additional_product_search_filter%'
+        tags:
+            - { name: 'pim_catalog.elasticsearch.query.product_filter', priority: 30 }
+            - { name: 'pim_catalog.elasticsearch.query.product_model_filter', priority: 30 }
+            - { name: 'pim_catalog.elasticsearch.query.product_and_product_model_filter', priority: 30 }
